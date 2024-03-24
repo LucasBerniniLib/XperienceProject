@@ -132,65 +132,6 @@
     </script>
     <!--AnimationTex Ends-->
 
-
-    <!--Page Navigation Begin-->
-    <script>
-        const formXperience = document.querySelector('.newExperience');
-        const homeContent = document.querySelector('.homeContent');
-        const xperiences = document.querySelector('.xperiencesContent');
-        const theTeam = document.querySelector('.theTeamContent');
-        const btn = document.getElementById('btnShowForm');
-        const pages = document.querySelectorAll('.page');
-
-        // Mostrar e Ocultar Paginas
-        function showPage(pageId) {
-            pages.forEach(page => {
-                if (page.id === pageId) {
-                    page.classList.add('active');
-                    if (pageId !== 'inicio' && formXperience.style.display === 'block') {
-                        formXperience.style.display = 'none';
-                    } else {
-                        if (homeContent.style.display === 'none') {
-                            homeContent.style.display = 'block';
-                            btn.style.display = 'block';
-                            formXperience.style.display = 'none';
-                        }
-                    }
-                } else {
-                    page.classList.remove('active');
-                }
-            });
-            // Atualiza a URL com o novo estado
-            history.pushState({ page: pageId }, null, `#${pageId}`);
-            // Atualiza o título da página
-            updatePageTitle(pageId);
-
-        }
-
-        // Mostra o formulário de nova xperience
-        function showForm() {
-            pages.forEach(page => {
-                if (page.id !== 'inicio') {
-                    page.classList.remove('active');
-                }
-            });
-            showPage('inicio');
-            formXperience.style.display = 'block';
-            homeContent.style.display = 'none';
-            btn.style.display = 'none';
-            pageTitle.textContent = `Xperience Project - New Xperience`;
-            history.pushState({}, null, `#registernew`);
-        };
-
-        // Função para atualizar o título da página
-        const pageTitle = document.querySelector('title');
-        function updatePageTitle(pageId) {
-            const pageName = document.getElementById(pageId).querySelector('h1').textContent;
-            pageTitle.textContent = `Xperience Project - ${pageName}`;
-        }
-    </script>
-    <!--Page Navigation Ends-->
-
     <!--Events Begin-->
     <script>
         // Adiciona um ouvinte de evento de tecla ao input
@@ -206,9 +147,26 @@
         }
     </script>
     <!--Events Ends-->
-
-    <!--Load and Save Xperience Data Begin-->
     <script>
+        const currentPath = window.location.pathname;
+        const directoryPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        const urlCSV = `${directoryPath}/assets/XperienceBook.csv`;
+        document.getElementById('company_logo').src = `${directoryPath}/assets/company_logo.png`;
+        document.getElementById('icon_go_to').src = `${directoryPath}/assets/icon_go_to.png`;
+        document.getElementById('icon_search').src = `${directoryPath}/assets/icon_search.png`;
+        document.getElementById('arrowleft').src = `${directoryPath}/assets/ArrowLeft.png`;
+        document.getElementById('arrowright').src = `${directoryPath}/assets/ArrowRight.png`;
+
+        document.getElementById('bianca').src = `${directoryPath}/assets/bianca.png`;
+        document.getElementById('debora').src = `${directoryPath}/assets/debora.png`;
+        document.getElementById('ingrid').src = `${directoryPath}/assets/ingrid.png`;
+        document.getElementById('lucas').src = `${directoryPath}/assets/lucas.png`;
+        document.getElementById('stephany').src = `${directoryPath}/assets/stephany.png`;
+    </script>
+
+
+    <script>
+        //<!--Load and Save Xperience Data Begin-->
         const tabela = document.getElementById('dados-tabela');
         let dataCounter = 0;
 
@@ -341,54 +299,80 @@
 
                 // Feedback de sucesso para o usuário (opcional)
                 alert('Your experience has been submitted successfully!');
+                UpdateSlides();
+                window.location.href = "index.html";
             } else {
                 // Feedback para o usuário se algum campo estiver vazio (opcional)
                 alert('Please fill in all fields.');
             }
         });
-    </script>
-    <!--Load and Save Xperience Data Ends-->
-
-    <script>
-        const currentPath = window.location.pathname;
-        const directoryPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
-        const urlCSV = `${directoryPath}/assets/XperienceBook.csv`;
-        document.getElementById('company_logo').src = `${directoryPath}/assets/company_logo.png`;
-        document.getElementById('icon_go_to').src = `${directoryPath}/assets/icon_go_to.png`;
-        document.getElementById('icon_search').src = `${directoryPath}/assets/icon_search.png`;
-        document.getElementById('arrowleft').src = `${directoryPath}/assets/ArrowLeft.png`;
-        document.getElementById('arrowright').src = `${directoryPath}/assets/ArrowRight.png`;
-
-        document.getElementById('bianca').src = `${directoryPath}/assets/bianca.png`;
-        document.getElementById('debora').src = `${directoryPath}/assets/debora.png`;
-        document.getElementById('ingrid').src = `${directoryPath}/assets/ingrid.png`;
-        document.getElementById('lucas').src = `${directoryPath}/assets/lucas.png`;
-        document.getElementById('stephany').src = `${directoryPath}/assets/stephany.png`;
 
 
-        // Função para lidar com a navegação do histórico do navegador
-        window.onpopstate = function (event) {
-            const pageId = event.state.page;
-            showPage(pageId);
+        //<!--Load and Save Xperience Data Ends-->
+
+        //<!--Page Navigation Begin-->
+        const formXperience = document.querySelector('.newExperience');
+        const homeContent = document.querySelector('.homeContent');
+        const xperiences = document.querySelector('.xperiencesContent');
+        const theTeam = document.querySelector('.theTeamContent');
+        const btn = document.getElementById('btnShowForm');
+        const pages = document.querySelectorAll('.page');
+
+        // Mostrar e Ocultar Paginas
+        function showPage(pageId) {
+            pages.forEach(page => {
+                if (page.id === pageId) {
+                    page.classList.add('active');
+                    if (pageId !== 'inicio' && formXperience.style.display === 'block') {
+                        formXperience.style.display = 'none';
+                    } else {
+                        if (homeContent.style.display === 'none') {
+                            homeContent.style.display = 'block';
+                            btn.style.display = 'block';
+                            formXperience.style.display = 'none';
+                        }
+                    }
+                } else {
+                    page.classList.remove('active');
+                }
+            });
+            // Atualiza a URL com o novo estado
+            history.pushState({ page: pageId }, null, `#${pageId}`);
+            // Atualiza o título da página
+            updatePageTitle(pageId);
+            UpdateSlides();
+        }
+
+        // Mostra o formulário de nova xperience
+        function showForm() {
+            pages.forEach(page => {
+                if (page.id !== 'inicio') {
+                    page.classList.remove('active');
+                }
+            });
+            showPage('inicio');
+            formXperience.style.display = 'block';
+            homeContent.style.display = 'none';
+            btn.style.display = 'none';
+            pageTitle.textContent = `Xperience Project - New Xperience`;
+            history.pushState({}, null, `#registernew`);
         };
-        // Mostra a página correta ao carregar a página inicialmente
-        window.onload = function () {
-            const initialPageId = location.hash.slice(1);
-            showPage(initialPageId || 'inicio');
-        };
 
-    </script>
+        // Função para atualizar o título da página
+        const pageTitle = document.querySelector('title');
+        function updatePageTitle(pageId) {
+            const pageName = document.getElementById(pageId).querySelector('h1').textContent;
+            pageTitle.textContent = `Xperience Project - ${pageName}`;
+        }
+        //<!--Page Navigation Ends-->
 
-    <!--Slider DataLoad Begin-->
-    <script>
-
+        //<!--Slider DataLoad Begin-->
         document.addEventListener('DOMContentLoaded', function () {
             const curPath = window.location.pathname;
             const dirPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
             const urlPathCSV = `${directoryPath}/assets/XperienceBook.csv`;
             copyTableToSlider(urlPathCSV);
         });
-
         async function copyTableToSlider(url) {
             const response = await fetch(url);
             const data = await response.text();
@@ -437,7 +421,7 @@
             });
             sliderStorage.appendChild(trSlider);
         }
-        window.onload = function () {
+        function UpdateSlides() {
             var slideIndex = 0;
             var slides = document.querySelectorAll('#content-table td').length;
 
@@ -455,9 +439,20 @@
                 }
             });
         };
+        window.onload = function () {
+            const initialPageId = location.hash.slice(1);
+            showPage(initialPageId || 'inicio');
+            UpdateSlides();
+        };
+        // Função para lidar com a navegação do histórico do navegador
+        window.onpopstate = function (event) {
+            const pageId = event.state.page;
+            showPage(pageId);
+        };
 
+        //<!--Slider DataLoad Ends-->  
     </script>
-    <!--Slider DataLoad Ends-->
+
 </body>
 
 </html>
