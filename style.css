@@ -116,6 +116,10 @@ body {
     border-radius: 5px;
 }
 
+#xperiences h2{
+    text-align: center;
+}
+
 .xPerienceForm button{
     margin-top: 15px;
     margin-left: 45px;
