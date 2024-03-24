@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Menu -->
+        <div class="row menu">
+            <a onclick="showPage('inicio')"><img id="company_logo" src="/assets/company_logo.png" alt="Home"
+                    title="Home"></a>
+            <div class="btn_menu">
+                <button id="btnShowForm" onclick="showForm()" title="Share your Xperience">SUBMIT</button>
+            </div>
+
+            <a id="meet_team" onclick="showPage('theTeam')" title="Meet The Team">THE TEAM<img id="icon_go_to"
+                    src="/assets/icon_go_to.png" alt="The Team"></a>
+        </div>
+        <!-- End Menu -->
+
+        <!-- Conteúdo das páginas -->
+        <div id="inicio" class="page active">
+            <h1>Início</h1>
+            <div class="homeContent">
+                <div class="row main">
+                    <p id="animationText">The Xperience Project</p>
+                </div>
+                <div class="row searchBar">
+                    <img id="icon_search" src="/assets/icon_search.png" alt="Search" title="Search for your destination"
+                        onclick="loadXperiences()">
+                    <input type="text" id="searchInput" placeholder="Search a destination">
+                </div>
+
+                <div class="slider">
+                    <div class="line"></div>
+                    <h2> Users Xperiences</h2>
+                    <div class="sliderContent">
+                        <img src="/assets/ArrowLeft.png" id="arrowleft">
+                        <div class="sliderXperiences">
+                            <table id="content-table">
+                            </table>
+                        </div>
+                        <img src="/assets/ArrowRight.png" id="arrowright">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="newExperience">
+                <div class="xPerienceForm">
+                    <p>NAME</p>
+                    <input type="text" id="nameInput" placeholder="Enter your name...">
+                    <p>LOCATION</p>
+                    <input type="text" id="locationInput" placeholder="Enter the visited location...">
+                    <p>XPERIENCE</p>
+                    <textarea id="experienceInput" placeholder="Type your Xperience here..."></textarea>
+                    <button type="submit" id="submitBtn">SUBMIT YOUR XPERIENCE</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="xperiences" class="page">
+            <h1>Xperiences</h1>
+            <table id="dados-tabela">
+                <!-- Tabela onde os dados serão exibidos -->
+            </table>
+        </div>
+
+        <div id="theTeam" class="page">
+            <h1>The Team</h1>
+            <div class="teamContent">
+                <div class="person">
+                    <img src="/assets/bianca.png" alt="" id="bianca">
+                    <p>Bianca Lima de Souza</p>
+                </div>
+                <div class="person">
+                    <img src="/assets/debora.png" alt="" id="debora">
+                    <p>Debora Barbosa do Nascimento</p>
+                </div>
+                <div class="person">
+                    <img src="/assets/ingrid.png" alt="" id="ingrid">
+                    <p>Ingrid Mara Xavier</p>
+                </div>
+                <div class="person">
+                    <img src="/assets/lucas.png" alt="" id="lucas">
+                    <p>Lucas Gois Carneiro Batista</p>
+                </div>
+                <div class="person">
+                    <img src="/assets/stephany.png" alt="" id="stephany">
+                    <p>Stephany Caroline Cavaleto Sant Anna</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--AnimationTex Begin-->
+    <script>
+        const animationText = document.getElementById('animationText');
+        const text = animationText.textContent;
+        let index = 0;
+        let isDeleting = false;
+        function animateText() {
+            const speed = 100; // Velocidade em milissegundos
+
+            if (isDeleting) {
+                index--;
+            } else {
+                index++;
+            }
+
+            // Exibe ou apaga os caracteres
+            animationText.textContent = text.substring(0, index);
+
+            // Alterna entre apagar e escrever
+            if (index === text.length + 1) {
+                isDeleting = true;
+            }
+            if (index === 0) {
+                isDeleting = false;
+            }
+
+            // Configura o próximo ciclo
+            const delta = isDeleting ? speed / 2 : speed;
+            setTimeout(animateText, delta);
+        }
+        animateText();
+    </script>
+    <!--AnimationTex Ends-->
+
+
+    <!--Page Navigation Begin-->
+    <script>
+        const formXperience = document.querySelector('.newExperience');
+        const homeContent = document.querySelector('.homeContent');
+        const xperiences = document.querySelector('.xperiencesContent');
+        const theTeam = document.querySelector('.theTeamContent');
+        const btn = document.getElementById('btnShowForm');
+        const pages = document.querySelectorAll('.page');
+
+        // Mostrar e Ocultar Paginas
+        function showPage(pageId) {
+            pages.forEach(page => {
+                if (page.id === pageId) {
+                    page.classList.add('active');
+                    if (pageId !== 'inicio' && formXperience.style.display === 'block') {
+                        formXperience.style.display = 'none';
+                    } else {
+                        if (homeContent.style.display === 'none') {
+                            homeContent.style.display = 'block';
+                            btn.style.display = 'block';
+                            formXperience.style.display = 'none';
+                        }
+                    }
+                } else {
+                    page.classList.remove('active');
+                }
+            });
+            // Atualiza a URL com o novo estado
+            history.pushState({ page: pageId }, null, `#${pageId}`);
+            // Atualiza o título da página
+            updatePageTitle(pageId);
+
+        }
+
+        // Mostra o formulário de nova xperience
+        function showForm() {
+            pages.forEach(page => {
+                if (page.id !== 'inicio') {
+                    page.classList.remove('active');
+                }
+            });
+            showPage('inicio');
+            formXperience.style.display = 'block';
+            homeContent.style.display = 'none';
+            btn.style.display = 'none';
+            pageTitle.textContent = `Xperience Project - New Xperience`;
+            history.pushState({}, null, `#registernew`);
+        };
+
+        // Função para atualizar o título da página
+        const pageTitle = document.querySelector('title');
+        function updatePageTitle(pageId) {
+            const pageName = document.getElementById(pageId).querySelector('h1').textContent;
+            pageTitle.textContent = `Xperience Project - ${pageName}`;
+        }
+    </script>
+    <!--Page Navigation Ends-->
+
+    <!--Events Begin-->
+    <script>
+        // Adiciona um ouvinte de evento de tecla ao input
+        document.getElementById('searchInput').addEventListener('keypress', handleKeyPress);
+        function handleKeyPress(event) {
+            // Verifica se a tecla pressionada é a tecla Enter (código 13)
+            if (event.keyCode === 13) {
+                // Chama a função de busca
+                loadXperiences();
+                // Limpa o conteúdo do input
+                document.getElementById('searchInput').value = '';
+            }
+        }
+    </script>
+    <!--Events Ends-->
+
+    <!--Load and Save Xperience Data Begin-->
+    <script>
+        const tabela = document.getElementById('dados-tabela');
+        let dataCounter = 0;
+
+        async function carregarDadosCSV(url) {
+            const response = await fetch(url);
+            const data = await response.text();
+            const linhas = data.split('\n');
+            const dadosLocalStorage = localStorage.getItem('XperiencesUsersProject');
+
+            if (tabela.rows.length > 0) {
+                if (dadosLocalStorage) {
+                    const dados = JSON.parse(dadosLocalStorage);
+                    if (dadosLocalStorage.length === dataCounter) {
+                        return;
+                    }
+
+                    // Iterar sobre cada conjunto de dados no array
+                    dados.forEach(function (item) {
+                        const trLocalStorage = document.createElement('tr');
+                        const tdLocalStorage = document.createElement('td');
+                        const h3 = document.createElement('h3');
+                        const p = document.createElement('p');
+
+                        h3.innerHTML = `${item.name} • ${item.location} <br>`;
+                        p.innerHTML = `${item.experience}`;
+
+                        tdLocalStorage.appendChild(h3);
+                        tdLocalStorage.appendChild(p);
+                        trLocalStorage.appendChild(tdLocalStorage);
+
+                        tabela.appendChild(trLocalStorage);
+
+                    });
+
+                    dataCounter = dadosLocalStorage.length;
+                }
+
+                return;
+            }
+
+            linhas.forEach((linha, index) => {
+                const colunas = linha.split(';');
+                const tr = document.createElement('tr');
+
+                // Verificar se cada valor em colunas está definido
+                if (colunas[0] !== undefined && colunas[1] !== undefined && colunas[2] !== undefined) {
+                    // Criar célula para a primeira coluna
+                    const td = document.createElement('td');
+                    const h3 = document.createElement('h3');
+                    const p = document.createElement('p');
+
+                    h3.innerHTML = `${colunas[0]} • ${colunas[1]} <br>`;
+                    p.innerHTML = `${colunas[2]}`;
+                    td.appendChild(h3);
+                    td.appendChild(p);
+                    tr.appendChild(td);
+
+                    // Adiciona a linha à tabela
+                    tabela.appendChild(tr);
+                }
+            });
+            if (dadosLocalStorage) {
+                const dados = JSON.parse(dadosLocalStorage);
+
+                // Iterar sobre cada conjunto de dados no array
+                dados.forEach(function (item) {
+                    // Criar elementos HTML para representar os dados
+                    const trLocalStorage = document.createElement('tr');
+                    const tdLocalStorage = document.createElement('td');
+                    const h3 = document.createElement('h3');
+                    const p = document.createElement('p');
+
+                    // Configurar o conteúdo dos elementos com os dados
+                    h3.innerHTML = `${item.name} • ${item.location} <br>`;
+                    p.innerHTML = `${item.experience}`;
+
+                    // Adicionar os elementos à hierarquia do documento
+                    tdLocalStorage.appendChild(h3);
+                    tdLocalStorage.appendChild(p);
+                    trLocalStorage.appendChild(tdLocalStorage);
+
+                    // Adicionar a linha à tabela
+                    tabela.appendChild(trLocalStorage);
+                    dataCounter = dadosLocalStorage.length;
+                });
+            }
+        }
+
+        function loadXperiences() {
+            showPage('xperiences');
+            carregarDadosCSV(urlCSV);
+        }
+        // Salva no localStorage
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            // Captura os valores dos campos de entrada
+            const name = document.getElementById('nameInput').value;
+            const location = document.getElementById('locationInput').value;
+            const experience = document.getElementById('experienceInput').value;
+
+            // Verifica se os campos não estão vazios
+            if (name.trim() !== '' && location.trim() !== '' && experience.trim() !== '') {
+                // Obtém os dados do localStorage, se existirem
+                let storedData = localStorage.getItem('XperiencesUsersProject');
+
+                // Se não houver dados armazenados, inicia com um array vazio
+                if (!storedData) {
+                    storedData = [];
+                } else {
+                    // Se houver dados armazenados, converte para array
+                    storedData = JSON.parse(storedData);
+                }
+
+                // Cria um objeto com os dados do formulário
+                const formData = {
+                    name: name,
+                    location: location,
+                    experience: experience
+                };
+
+                // Adiciona os novos dados ao array
+                storedData.push(formData);
+
+                // Salva os dados atualizados no localStorage
+                localStorage.setItem('XperiencesUsersProject', JSON.stringify(storedData));
+
+                // Limpa os campos do formulário
+                document.getElementById('nameInput').value = '';
+                document.getElementById('locationInput').value = '';
+                document.getElementById('experienceInput').value = '';
+
+                // Feedback de sucesso para o usuário (opcional)
+                alert('Your experience has been submitted successfully!');
+            } else {
+                // Feedback para o usuário se algum campo estiver vazio (opcional)
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+    <!--Load and Save Xperience Data Ends-->
+
+    <script>
+        const currentPath = window.location.pathname;
+        const directoryPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        const urlCSV = `${directoryPath}/assets/XperienceBook.csv`;
+        document.getElementById('company_logo').src = `${directoryPath}/assets/company_logo.png`;
+        document.getElementById('icon_go_to').src = `${directoryPath}/assets/icon_go_to.png`;
+        document.getElementById('icon_search').src = `${directoryPath}/assets/icon_search.png`;
+        document.getElementById('arrowleft').src = `${directoryPath}/assets/ArrowLeft.png`;
+        document.getElementById('arrowright').src = `${directoryPath}/assets/ArrowRight.png`;
+
+        document.getElementById('bianca').src = `${directoryPath}/assets/bianca.png`;
+        document.getElementById('debora').src = `${directoryPath}/assets/debora.png`;
+        document.getElementById('ingrid').src = `${directoryPath}/assets/ingrid.png`;
+        document.getElementById('lucas').src = `${directoryPath}/assets/lucas.png`;
+        document.getElementById('stephany').src = `${directoryPath}/assets/stephany.png`;
+
+
+        // Função para lidar com a navegação do histórico do navegador
+        window.onpopstate = function (event) {
+            const pageId = event.state.page;
+            showPage(pageId);
+        };
+        // Mostra a página correta ao carregar a página inicialmente
+        window.onload = function () {
+            const initialPageId = location.hash.slice(1);
+            showPage(initialPageId || 'inicio');
+        };
+
+    </script>
+
+    <!--Slider DataLoad Begin-->
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const curPath = window.location.pathname;
+            const dirPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+            const urlPathCSV = `${directoryPath}/assets/XperienceBook.csv`;
+            copyTableToSlider(urlPathCSV);
+        });
+
+        async function copyTableToSlider(url) {
+            const response = await fetch(url);
+            const data = await response.text();
+            const linhas = data.split('\n');
+            const dadosLocalStorage = localStorage.getItem('XperiencesUsersProject');
+            const sliderStorage = document.getElementById('content-table');
+            const trSlider = document.createElement('tr');
+            trSlider.id = 'sliderLine'
+
+            if (dadosLocalStorage) {
+                const dados = JSON.parse(dadosLocalStorage);
+                if (dadosLocalStorage.length === dataCounter) {
+                    return;
+                }
+                // Iterar sobre cada conjunto de dados no array
+                dados.forEach(function (item) {
+                    const tdLocalStorage = document.createElement('td');
+                    const h3 = document.createElement('h3');
+                    const p = document.createElement('p');
+
+                    h3.innerHTML = `${item.name} • ${item.location} <br>`;
+                    p.innerHTML = `${item.experience}`;
+
+                    tdLocalStorage.appendChild(h3);
+                    tdLocalStorage.appendChild(p);
+                    trSlider.appendChild(tdLocalStorage);
+                });
+            }
+
+            linhas.forEach((linha, index) => {
+                const colunas = linha.split(';');
+
+                // Verificar se cada valor em colunas está definido
+                if (colunas[0] !== undefined && colunas[1] !== undefined && colunas[2] !== undefined) {
+                    // Criar célula para a primeira coluna
+                    const td = document.createElement('td');
+                    const h3 = document.createElement('h3');
+                    const p = document.createElement('p');
+
+                    h3.innerHTML = `${colunas[0]} • ${colunas[1]} <br>`;
+                    p.innerHTML = `${colunas[2]}`;
+                    td.appendChild(h3);
+                    td.appendChild(p);
+                    trSlider.appendChild(td);
+                }
+            });
+            sliderStorage.appendChild(trSlider);
+        }
+        window.onload = function () {
+            var slideIndex = 0;
+            var slides = document.querySelectorAll('#content-table td').length;
+
+            document.getElementById('arrowleft').addEventListener('click', function () {
+                if (slideIndex > 0) {
+                    slideIndex--;
+                    document.getElementById('content-table').style.marginLeft = -slideIndex * 454 + 'px';
+                }
+            });
+
+            document.getElementById('arrowright').addEventListener('click', function () {
+                if (slideIndex < slides - 1) {
+                    slideIndex++;
+                    document.getElementById('content-table').style.marginLeft = -slideIndex * 454 + 'px';
+                }
+            });
+        };
+
+    </script>
+    <!--Slider DataLoad Ends-->
+</body>
+
+</html>

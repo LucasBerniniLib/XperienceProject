@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.container {
+    align-self: center;
+    max-width: 1920px;
+    min-width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.homeContent {
+    display: block;
+    min-height: 80vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    display: flex;
+    width: 100%;
+    min-height: 60vh;
+    height: 60vh;
+    font-size: 50px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.main p {
+    height: 50px;
+}
+
+.container a {
+    cursor: pointer;
+}
+
+.page {
+    display: none;
+    animation: slideFromLeft 0.3s ease-in-out;
+}
+
+.page.active {
+    display: block;
+}
+
+.page h1 {
+    display: none;
+}
+
+.searchBar {
+    min-height: 10vh;
+    width: 100%;
+}
+
+.searchBar input {
+    width: 340px;
+    height: 25px;
+    border: 2px solid;
+    border-color: #603C3C43;
+    border-radius: 5px;
+    padding-left: 35px;
+}
+
+#icon_search {
+    position: relative;
+    left: 30px;
+    cursor: pointer;
+}
+
+.newExperience {
+    display: none;
+    width: 100vw;
+}
+
+.xPerienceForm{
+    width: 60%;
+    position: relative;
+    left: 40%;
+    text-align: left;
+    display: block;
+    height: 500px;
+}
+
+.xPerienceForm p{
+    font-size: 12px;
+    color: #000000d6;
+    position: relative;
+    top: 10px;
+}
+.xPerienceForm input{
+    width: 300px;
+    text-align: left;
+    height: 25px;
+    border: 2px solid;
+    border-color: #603C3C43;
+    border-radius: 5px;
+}
+
+#experienceInput{
+    width: 300px;
+    height: 100px;
+    border: 2px solid;
+    border-color: #603C3C43;
+    border-radius: 5px;
+}
+
+.xPerienceForm button{
+    margin-top: 15px;
+    margin-left: 45px;
+    display: block;
+    height: 41px;
+    width: 201px;
+    background-color: black;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+
+.row.menu {
+    justify-self: center;
+    width: 100%;
+    height: 70px;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+
+}
+
+.slider {
+    min-height: 50vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.sliderXperiences {
+    overflow: hidden;
+    width: 450px;
+    height: 300px;
+    margin-right: 35px;
+}
+
+.sliderContent{
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+}
+
+#content-table {
+    width: 2000px;
+    display: flex;
+}
+
+#content-table td {
+    word-wrap: break-word;
+    width: 400px;
+}
+
+#content-table td h3{
+    width: 440px;
+}
+#content-table td p{
+    width: 450px;
+    height: 300px;
+}
+.slider img {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    top: 90px;
+}
+
+#arrowleft {
+    float: left;
+    left: -15px;
+}
+
+#arrowright {
+    float: right;
+    right: -45px;
+}
+
+.slider h2 {
+    font-weight: 400;
+    font-size: 35px;
+    text-align: center;
+    position: relative;
+    /* Define a posição relativa */
+    top: 23px;
+    background: #FFF;
+    padding-left: 50px;
+    padding-right: 50px;
+    z-index: 2;
+}
+
+.line {
+    position: relative;
+    top: 78px;
+    /* Alinha a linha no topo da div */
+    width: 100%;
+    /* Define a largura da linha */
+    height: 2px;
+    /* Define a altura da linha */
+    background-color: black;
+    /* Define a cor da linha */
+    z-index: 1;
+}
+
+.btn_menu {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#btnShowForm {
+    position: relative;
+    height: 41px;
+    width: 121px;
+    background-color: black;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+#meet_team {
+    margin-top: 10px;
+    justify-self: end;
+    text-decoration: underline;
+    padding-right: 20px;
+}
+
+#meet_team img {
+    margin-left: 5px;
+}
+
+#company_logo {
+    width: 50px;
+    height: 50px;
+}
+
+#dados-tabela {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#dados-tabela h3 {
+    font-size: 18px;
+    height: 10px;
+    width: 100%;
+}
+
+#dados-tabela p {
+    display: block;
+    align-self: center;
+    position: relative;
+    font-size: 14px;
+    padding: 15px 15px;
+}
+
+#dados-tabela tr {
+    height: auto;
+    border: 1px #000 solid;
+    border-radius: 15px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#dados-tabela td {
+    display: block;
+    word-wrap: break-word;
+    width: 100%;
+    padding: 5px;
+}
+
+.teamContent {
+    display: block;
+    width: 100vw;
+    text-align: center;
+}
+
+.person{
+    margin-left: 10%;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    display: flex;
+}
+
+.teamContent img {
+    width: 100px; /* Define a largura fixa para as imagens */
+}
+
+.teamContent p {
+    font-size: 22px;
+    margin-left: 15px;
+    text-align: left;
+    width: 400px;
+}
+@keyframes slideFromLeft {
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
